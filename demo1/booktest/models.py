@@ -5,6 +5,8 @@ from django.db import models
 class BookInfo(models.Model):
     btitle = models.CharField(max_length=20)
     bpub_date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.btitle
 
 class HeroInfo(models.Model):
     hname = models.CharField(max_length=20)
@@ -12,6 +14,8 @@ class HeroInfo(models.Model):
     hcontent = models.CharField(max_length=50)
     # 外键 第一个参数为表名 第二个参数代表删除类型
     hbook = models.ForeignKey('BookInfo',on_delete=models.CASCADE)
+    def __str__(self):
+        return self.hname
 
 
 
@@ -40,4 +44,11 @@ python manage.py shell 进入命令：不需要运行项目就可以操作数据
 添加对象 **.save()
 修改    **.save()
 删除    **.delete()
+
+一对多： 一方存在主键  多方存在主键也存在外键（一方中主键）
+
+一方.heroinfo_set.all()
+
+类名.objects.create( 列名=值)   不需要save
+
 """
