@@ -19,3 +19,8 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+"""
+项目URL 
+通过urlpatterns 列表中的内容将路由和视图绑定
+"""
