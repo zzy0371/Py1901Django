@@ -28,6 +28,16 @@ class HeroInfo(models.Model):
  
  python manage.py makemigrations 生成迁移文件
  python manage.py migrate 执行迁移
+
  
- 
+"""
+
+"""
+python manage.py shell 进入命令：不需要运行项目就可以操作数据库
+导入类  from  booktest.models import HeroInfo,BookInfo
+查找所有行  表名.objects.all()
+根据主键查找 表名.objects.get(pk =1)
+添加对象 **.save()
+修改    **.save()
+删除    **.delete()
 """
