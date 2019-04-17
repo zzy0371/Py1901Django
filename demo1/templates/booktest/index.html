@@ -5,11 +5,15 @@
     <title>首页</title>
 </head>
 <body>
-
     {% if username %}
         <h2>{{username}}</h2>
     {% else %}
         <h2>没有登录</h2>
     {% endif %}
+
+    <br>
+
+    {#  超级链接硬编码 #}
+    <a href="/booktest/list/">进入列表页</a>
 </body>
 </html>
