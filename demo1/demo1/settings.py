@@ -81,6 +81,18 @@ DATABASES = {
         # BASE_DIR  指项目根路径
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     # BASE_DIR  指项目根路径
+    #     'NAME': 'dbdemo1',
+    #     'USER': 'root',
+    #     'PASSWORD': '123456',
+    #
+    #     """
+    #     mysql 可以使用pymysql驱动 2.2 版本不行
+    #     安装mysqlclient 适应django2.2
+    #     """
+    # }
 }
 
 
