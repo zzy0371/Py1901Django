@@ -18,6 +18,22 @@ class HeroInfo(models.Model):
         return self.hname
 
 
+    def skill(self):
+        return self.hcontent
+
+    skill.short_description = '绝招'
+
+    def sex(self):
+        return self.hgender
+    sex.short_description = '性别'
+
+    def name(self):
+        return self.hname
+
+    name.short_description = '姓名'
+
+
+
 
 """
  django MVT  M
