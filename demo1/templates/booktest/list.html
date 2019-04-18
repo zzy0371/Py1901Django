@@ -14,7 +14,7 @@
             {# <li><a href="/booktest/detail/{{book.id}}/">{{book.btitle}}</a> </li> #}
 
             {# 去除硬编码 #}
-            <li><a href="{% url 'booktest:detail' book.id %}">{{book.btitle}}</a> </li>
+            <li><a href="{% url 'booktest:detail' book.id %}">{{book.btitle}}</a> <a href="{% url 'booktest:delete' book.id %}">删除</a></li>
             {% empty %}
             <h3>没有图书信息</h3>
             {% endfor %}

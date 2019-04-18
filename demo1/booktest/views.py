@@ -28,6 +28,15 @@ def list(request):
 def detail(request,id):
     book = BookInfo.objects.get(pk=id)
     return render(request,'booktest/detail.html',{"book":book})
+
+
+def delete(request,id):
+    try:
+        BookInfo.objects.get(pk=id).delete()
+        bl = BookInfo.objects.all()
+        return render(request, 'booktest/list.html', {"booklist": bl})
+    except:
+        return HttpResponse("删除失败")
 """
 视图函数
 将函数和路绑定
