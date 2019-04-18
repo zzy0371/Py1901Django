@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from .models import BookInfo
 from django.template import loader
 # Create your views here.
@@ -34,7 +34,10 @@ def delete(request,id):
     try:
         BookInfo.objects.get(pk=id).delete()
         bl = BookInfo.objects.all()
-        return render(request, 'booktest/list.html', {"booklist": bl})
+        # 使用render没有刷新请求url
+        # return render(request, 'booktest/list.html', {"booklist": bl})
+        # 重新向服务器发起请求 刷新url
+        return HttpResponseRedirect('/booktest/list/',{"booklist": bl})
     except:
         return HttpResponse("删除失败")
 """
