@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>列表页</title>
+    <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>
-    <h1>书籍信息</h1>
+    <div class="container">
+        <h1>书籍信息</h1>
 
-    <ul>
-        {% for book in booklist %}
-        {# <li><a href="/booktest/detail/{{book.id}}/">{{book.btitle}}</a> </li> #}
+        <ul>
+            {% for book in booklist %}
+            {# <li><a href="/booktest/detail/{{book.id}}/">{{book.btitle}}</a> </li> #}
 
-        {# 去除硬编码 #}
-        <li><a href="{% url 'booktest:detail' book.id %}">{{book.btitle}}</a> </li>
-        {% empty %}
-        <h3>没有图书信息</h3>
-        {% endfor %}
+            {# 去除硬编码 #}
+            <li><a href="{% url 'booktest:detail' book.id %}">{{book.btitle}}</a> </li>
+            {% empty %}
+            <h3>没有图书信息</h3>
+            {% endfor %}
 
-    </ul>
+        </ul>
 
-    <a href="{% url 'booktest:index' %}">返回首页</a>
+        <a href="{% url 'booktest:index' %}">返回首页</a>
+    </div>
 </body>
 </html>
