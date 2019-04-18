@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import BookInfo
+from .models import BookInfo,HeroInfo
 from django.template import loader
 # Create your views here.
 
@@ -40,6 +40,27 @@ def delete(request,id):
         return HttpResponseRedirect('/booktest/list/',{"booklist": bl})
     except:
         return HttpResponse("删除失败")
+
+
+def addhero(request, bookid):
+    return render(request, 'booktest/addhero.html', {"bookid":bookid})
+
+def addherohandler(request):
+    bookid = request.POST["bookid"]
+    hname = request.POST["heroname"]
+    hgender = request.POST["sex"]
+    hcontent = request.POST["herocontent"]
+    # print(bookid,hname,hgender,hcontent)
+
+    book = BookInfo.objects.get(pk=bookid)
+    hero = HeroInfo()
+    hero.hname = hname
+    hero.hgender = True
+    hero.hcontent = hcontent
+    hero.hbook = book
+    hero.save()
+    return HttpResponseRedirect('/booktest/detail/'+str(bookid)+'/',{"book":book})
+    # return HttpResponse("添加成功")
 """
 视图函数
 将函数和路绑定
