@@ -13,9 +13,12 @@
         <ul>
             <h3>投票选项</h3>
             <form action="{% url 'polls:vote'%}" method="post">
-                {% csrf_token %}
                 {% for choice in  question.choices_set.all %}
+                    {% if forloop.counter == 1 %}
+                    <li><input type="radio" name="votenum" value="{{choice.id}}" checked>  {{choice.choice_text}}</li>
+                    {% else %}
                     <li><input type="radio" name="votenum" value="{{choice.id}}">  {{choice.choice_text}}</li>
+                    {% endif %}
                 {% empty %}
                     <h4>没有可选项目</h4>
                 {% endfor %}

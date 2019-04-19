@@ -4,5 +4,6 @@ app_name = 'polls'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^detail/(\d+)/$', views.detail, name='detail'),
-    url(r'^vote/$',views.vote, name='vote')
+    url(r'^vote/$',views.vote, name='vote'),
+    url(r'^result/(\d+)/$',views.result,name='result')
 ]

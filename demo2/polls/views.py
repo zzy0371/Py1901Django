@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from .models import Question,Choices
 # Create your views here.
 
@@ -18,4 +18,9 @@ def vote(request):
     choice.votes += 1
     choice.save()
     # return HttpResponse("投票完成")
+    return HttpResponseRedirect('/polls/result/'+str(choice.id)+'/')
+
+def result(request,cid):
+    # return HttpResponse("hello")
+    choice = Choices.objects.get(pk=cid)
     return render(request,'polls/result.html',{"question":choice.question})
