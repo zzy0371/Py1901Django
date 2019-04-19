@@ -1,0 +1,17 @@
+div.container{
+    width:1000px;
+    margin:0 auto;
+    background-color:#a2b6a2;
+}
+
+ul li{
+    height:40px;
+    line-height:40px;
+    color:red;
+    list-style:none;
+}
+
+p{
+text-align:center;
+padding-bottom:20px;
+}

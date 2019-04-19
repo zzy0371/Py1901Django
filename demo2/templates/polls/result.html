@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票结果</title>
+    {% load static from staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+</head>
+<body>
+    <div class="container">
+        <h2>投票信息：{{question.question_text}}</h2>
+        <ul>
+            <h3>当前得票信息</h3>
+            {% for choice in question.choices_set.all%}
+            <li> {{choice.choice_text}}  票数: {{choice.votes}} </li>
+            {% empty %}
+            <h4>没有票数信息</h4>
+            {% endfor %}
+        </ul>
+    <p><a href="/polls/">返回</a></p>
+    </div>
+</body>
+</html>

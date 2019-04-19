@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表页</title>
+    {% load static from staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
+</head>
+<body>
+    <div class="container">
+        <h2>投票信息：{{question.question_text}}</h2>
+
+        <ul>
+            <h3>投票选项</h3>
+            <form action="{% url 'polls:vote'%}" method="post">
+                {% csrf_token %}
+                {% for choice in  question.choices_set.all %}
+                    <li><input type="radio" name="votenum" value="{{choice.id}}">  {{choice.choice_text}}</li>
+                {% empty %}
+                    <h4>没有可选项目</h4>
+                {% endfor %}
+                <input type="submit" value="投票">
+            </form>
+
+        </ul>
+        <p><a href="/polls/">返回</a></p>
+    </div>
+</body>
+</html>
