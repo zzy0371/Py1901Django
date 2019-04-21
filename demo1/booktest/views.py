@@ -46,12 +46,12 @@ def addhero(request, bookid):
     return render(request, 'booktest/addhero.html', {"bookid":bookid})
 
 def addherohandler(request):
+
     bookid = request.POST["bookid"]
     hname = request.POST["heroname"]
     hgender = request.POST["sex"]
     hcontent = request.POST["herocontent"]
-    # print(bookid,hname,hgender,hcontent)
-
+    print(bookid,hname,hgender,hcontent)
     book = BookInfo.objects.get(pk=bookid)
     hero = HeroInfo()
     hero.hname = hname
