@@ -12,9 +12,10 @@
 <body>
     <div class="container">
         {% if username %}
-        <h2>{{username}}</h2>
+        <h2>{{username}} ---<a href="{% url 'booktest:logout' %}">退出</a></h2>
+
         {% else %}
-            <h2>没有登录</h2>
+        <a href="{% url 'booktest:login' %}"> 登录</a>
         {% endif %}
 
         <br>

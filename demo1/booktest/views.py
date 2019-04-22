@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import BookInfo,HeroInfo
 from django.template import loader
@@ -16,7 +16,20 @@ def index(request):
     # # 返回模板
     # return HttpResponse(result)
 
-    return render(request,'booktest/index.html',{"username":'zzy'})
+    return render(request,'booktest/index.html',{"username":request.session.get("username")})
+
+def login(request):
+    if request.method == "GET":
+        return render(request,'booktest/login.html')
+    elif request.method == "POST":
+        username = request.POST["username"]
+        request.session["username"] = username
+        return redirect(reverse('booktest:index'))
+
+def logout(request):
+    del request.session["username"]
+    return redirect(reverse('booktest:index'))
+
 
 
 def list(request):
