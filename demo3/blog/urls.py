@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from .feed import PostFeed
 app_name = "blog"
 urlpatterns = [
     # 进入首页显示
@@ -12,5 +13,6 @@ urlpatterns = [
     url(r'category/(\d+)/', views.category, name='category'),
     # 点击标签项目，需要传入标签id，跳转到首页
     url(r'tag/(\d+)/', views.tag, name='tag'),
+    url(r'^rss/$', PostFeed(),name='rss'),
 
 ]

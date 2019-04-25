@@ -57,3 +57,5 @@ def tag(request,id):
         "postlist":postlist,
     }
     return render(request,'blog/index.html',context)
+
+
