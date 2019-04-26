@@ -3,12 +3,23 @@ from django.http import HttpResponse
 from .models import Post,Tag,Category
 from comment.forms import CommentForm
 import markdown
+from django.core.paginator import Paginator
 # Create your views here.
+
+def getpage(request,objectlist):
+    # 分页器
+    paginator = Paginator(objectlist,2)
+    pagenum = request.GET.get("page")
+    pagenum = 1 if pagenum == None else pagenum
+    page = paginator.page(pagenum)
+    return page
 
 def index(request):
     postlist = Post.objects.all()
+    page = getpage(request,postlist)
     context = {
-        "postlist":postlist,
+        # "postlist":postlist,
+        "page":page,
     }
     return render(request,'blog/index.html',context)
 
@@ -39,22 +50,28 @@ def detail(request,id):
 
 def archives(request,y,m):
     postlist = get_list_or_404(Post, create_time__year = y, create_time__month = m)
+    page = getpage(request,postlist)
     context = {
-        "postlist":postlist,
+        # "postlist":postlist,
+        "page":page,
     }
     return render(request,'blog/index.html',context)
 
 def category(request,id):
     postlist = get_object_or_404(Category,pk=id).post_set.all()
+    page = getpage(request,postlist)
     context = {
-        "postlist":postlist,
+        # "postlist":postlist,
+        "page":page,
     }
     return render(request,'blog/index.html',context)
 
 def tag(request,id):
     postlist = get_object_or_404(Tag,pk=id).post_set.all()
+    page = getpage(request,postlist)
     context = {
-        "postlist":postlist,
+        # "postlist":postlist,
+        "page":page,
     }
     return render(request,'blog/index.html',context)
 

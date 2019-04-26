@@ -2,7 +2,7 @@
 {% load extend_fun %}
 
 {% block left %}
-    {% for post in postlist %}
+    {% for post in page.object_list %}
         <article class="post post-1">
         <header class="entry-header">
             <h1 class="entry-title">
@@ -30,13 +30,21 @@
 
 
 
-    <!-- 简单分页效果
+
     <div class="pagination-simple">
-        <a href="#">上一页</a>
-        <span class="current">第 6 页 / 共 11 页</span>
-        <a href="#">下一页</a>
+        {% if page.object_list %}
+            {% if page.has_previous %}
+                <a href="?page={{page.previous_page_number}}">上一页</a>
+                <a href="?page={{page.number|add:-1}}">{{page.number|add:-1}}</a>
+            {% endif %}
+            <span class="current">第 {{page.number}} 页 / 共 {{page.paginator.num_pages}} 页</span>
+             {% if page.has_next %}
+                 <a href="?page={{page.number|add:1}}">{{page.number|add:1}}</a>
+                <a href="?page={{page.next_page_number}}">下一页</a>
+            {% endif %}
+        {% endif %}
     </div>
-    -->
+
     {% comment %}
         <div class="pagination">
                     <ul>
