@@ -1,0 +1,13 @@
+{% extends 'booklibrary/base.html' %}
+{% block title %} 欢迎使用 {% endblock %}
+{% block link %} 
+	<a href="{% url 'booklibrary:readerlogout' %}"> 注销[{{username}}] </a> |
+	<a href="{% url 'booklibrary:readerquery' %}"> 查询 </a> |
+	<a href="{% url 'booklibrary:readerinfo' %}"> 查看个人信息 </a> |
+	<a href="{% url 'booklibrary:readerhistory'%}"> 查看阅读记录 </a>
+
+{% endblock %}
+
+{% block body %}
+	<h2> 欢迎使用 </h2>
+{% endblock %}
