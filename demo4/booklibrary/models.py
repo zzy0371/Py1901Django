@@ -25,5 +25,12 @@ class History(models.Model):
     def __str__(self):
         return self.studentuser.username + '  借   <<' +self.book.name + ">>"
 
+class HotPic(models.Model):
+    index = models.IntegerField()
+    pic = models.ImageField(upload_to='hotpic')
+
+    def __str__(self):
+        return self.pic.name
+
 
 
