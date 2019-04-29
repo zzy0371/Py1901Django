@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,reverse,get_object_or_404
 from django.http import HttpResponse
-from .models import StudentUser,Book,History
+from .models import StudentUser,Book,History,HotPic
 from django.db.models import Q
 from datetime import datetime,timedelta
 from django.contrib.auth.hashers import make_password
@@ -120,3 +120,13 @@ def readerhistory(request):
     user = get_object_or_404(StudentUser, username = request.session.get("username"))
     histroys = History.objects.filter(studentuser_id = user.id)
     return render(request,'booklibrary/reader_histroy.html',{"histroys":histroys})
+
+
+def upload(request):
+    if request.method == "GET":
+        return render(request,'booklibrary/reader_upload.html')
+    elif request.method == "POST":
+        # 文件数据需要使用FILES 获取  enctype = "multipart/form-data"
+        hp = HotPic(index = request.POST["index"], pic = request.FILES["pic"])
+        hp.save()
+        return redirect(reverse('booklibrary:index'))

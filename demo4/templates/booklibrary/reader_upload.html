@@ -1,0 +1,15 @@
+{% extends 'booklibrary/base.html' %}
+{% block title %}
+<title>上传图片</title>
+{% endblock %}
+
+{% block body %}
+<form action="{% url 'booklibrary:upload' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    排序编号： <input type="text" name="index">
+    <br>
+    选择图片: <input type="file" name="pic">
+    <br>
+    <input type="submit" value="提交">
+</form>
+{% endblock %}

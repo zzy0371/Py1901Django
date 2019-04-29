@@ -12,4 +12,7 @@ urlpatterns = [
     url(r'^reader/info/$',views.readerinfo,name='readerinfo'),
     url(r'^reader/modify/$',views.readermodify,name='readermodify'),
     url(r'^reader/history/$',views.readerhistory,name='readerhistory'),
+
+
+    url(r'^upload/$', views.upload,name='upload'),
 ]

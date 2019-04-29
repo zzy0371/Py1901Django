@@ -27,7 +27,7 @@ class History(models.Model):
 
 class HotPic(models.Model):
     index = models.IntegerField()
-    pic = models.ImageField(upload_to='hotpic')
+    pic = models.ImageField(upload_to='hotpic/')
 
     def __str__(self):
         return self.pic.name
