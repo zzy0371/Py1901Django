@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from .models import StudentUser,Book,History,HotPic,MessageInfo
 from django.db.models import Q
 from datetime import datetime,timedelta
-from django.contrib.auth.hashers import make_password
+from django.core.mail import send_mail,send_mass_mail
+from django.conf import settings
 # Create your views here.
 def index(request):
+
     messageinfos = MessageInfo.objects.all()
     return render(request,'booklibrary/index.html',{"messageinfos":messageinfos})
 
@@ -35,7 +37,13 @@ def readerregister(request):
         try:
             un = request.POST.get("username")
             pwd = request.POST.get("password")
-            StudentUser.objects.create_user(un, password=pwd)
+            email = request.POST.get("email")
+            StudentUser.objects.create_user(un, password=pwd, is_active = False)
+            id = StudentUser.objects.get(username = un).id
+
+            # TODO 需要进行序列化加密
+            send_mail("点击激活账户", " <a href = 'http://127.0.0.1:8000/booklibrary/active/%s'> 点击我激活账户</a> "%(id,),settings.DEFAULT_FROM_EMAIL,[email])
+
         except Exception as e:
             return render(request, 'booklibrary/reader_register.html', {"error":e})
 
@@ -124,6 +132,11 @@ def readerhistory(request):
 
 
 def upload(request):
+    """
+    上传图片
+    :param request:
+    :return:
+    """
     if request.method == "GET":
         return render(request,'booklibrary/reader_upload.html')
     elif request.method == "POST":
@@ -133,6 +146,11 @@ def upload(request):
         return redirect(reverse('booklibrary:index'))
 
 def edit(request):
+    """
+    富文本编辑
+    :param request:
+    :return:
+    """
     if request.method == "GET":
         return render(request,'booklibrary/edit.html')
     elif request.method == "POST":
@@ -141,5 +159,36 @@ def edit(request):
         msg = MessageInfo(title=title,message =message)
         msg.save()
         return redirect(reverse('booklibrary:index'))
+
+def mail(request):
+    """发送邮件"""
+
+    try:
+        send_mail("Django发送邮件", "Django自带邮件功能，<a src = 'http://127.0.0.1:8000/booklibrary/'> 百度</a> 你可以使用sendmail 或者sendmassmail 发送",
+                  settings.DEFAULT_FROM_EMAIL, ["496575233@qq.com", "zhangzhaoyu@qikux.com"]
+                  )
+        # send_mass_mail((("Django发送邮件1", "Django自带邮件功能，你可以使用sendmail 或者sendmassmail 发送",
+        #           settings.DEFAULT_FROM_EMAIL, ["496575233@qq.com", "zhangzhaoyu@qikux.com"]
+        #           ),("Django发送邮件2", "Django自带邮件功能，你可以使用sendmail 或者sendmassmail 发送",
+        #           settings.DEFAULT_FROM_EMAIL, ["496575233@qq.com", "zhangzhaoyu@qikux.com"]
+        #           ),("Django发送邮件3", "Django自带邮件功能，你可以使用sendmail 或者sendmassmail 发送",
+        #           settings.DEFAULT_FROM_EMAIL, ["496575233@qq.com", "zhangzhaoyu@qikux.com"]
+        #           )))
+    except:
+        return HttpResponse("发送失败")
+
+    return HttpResponse("发送成功")
+
+def active(request,id):
+    """
+    用户激活用户 id为用户id
+    :param request:
+    :param id:
+    :return:
+    """
+    user = StudentUser.objects.get(pk = id)
+    user.is_active = True
+    user.save()
+    return redirect(reverse('booklibrary:readerlogin'))
 
 

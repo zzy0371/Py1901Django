@@ -18,4 +18,8 @@ urlpatterns = [
 
     # 富文本编辑器
     url(r'^edit/$', views.edit,name='edit'),
+
+    url(r'^mail/$',views.mail,name='mail'),
+
+    url(r'^active/(\d+)/$',views.active, name='active')
 ]
