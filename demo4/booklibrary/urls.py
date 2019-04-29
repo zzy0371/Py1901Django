@@ -15,4 +15,7 @@ urlpatterns = [
 
 
     url(r'^upload/$', views.upload,name='upload'),
+
+    # 富文本编辑器
+    url(r'^edit/$', views.edit,name='edit'),
 ]

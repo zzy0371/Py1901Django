@@ -1,12 +1,13 @@
 from django.shortcuts import render,redirect,reverse,get_object_or_404
 from django.http import HttpResponse
-from .models import StudentUser,Book,History,HotPic
+from .models import StudentUser,Book,History,HotPic,MessageInfo
 from django.db.models import Q
 from datetime import datetime,timedelta
 from django.contrib.auth.hashers import make_password
 # Create your views here.
 def index(request):
-    return render(request,'booklibrary/index.html')
+    messageinfos = MessageInfo.objects.all()
+    return render(request,'booklibrary/index.html',{"messageinfos":messageinfos})
 
 def readerlogin(request):
     if request.method == "GET":
@@ -130,3 +131,15 @@ def upload(request):
         hp = HotPic(index = request.POST["index"], pic = request.FILES["pic"])
         hp.save()
         return redirect(reverse('booklibrary:index'))
+
+def edit(request):
+    if request.method == "GET":
+        return render(request,'booklibrary/edit.html')
+    elif request.method == "POST":
+        title = request.POST["title"]
+        message = request.POST["message"]
+        msg = MessageInfo(title=title,message =message)
+        msg.save()
+        return redirect(reverse('booklibrary:index'))
+
+

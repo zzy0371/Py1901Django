@@ -11,7 +11,9 @@
 {% block body %}
     <h2>欢迎使用</h2>
     <div class="hot">
-        <h3>热门图书</h3>
+        <hr>
+        <h5>热门图书</h5>
+        <hr>
         {% gethot_pics as hot_pics%}
 
           <!--轮播图-->
@@ -60,13 +62,19 @@
   </a>
 </div>
 
+    </div>
+    <hr>
+    <div class="articles">
+        <h5>热门文章</h5>
+        <hr>
+        {% for message in messageinfos %}
+            {{message.message|safe}}
 
-
-
-
-
+        <hr>
+        {% endfor %}
 
     </div>
+
 
 
 {% endblock %}

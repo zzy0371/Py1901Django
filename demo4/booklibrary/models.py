@@ -32,5 +32,14 @@ class HotPic(models.Model):
     def __str__(self):
         return self.pic.name
 
+from tinymce.models import HTMLField
+class MessageInfo(models.Model):
+    title = models.CharField(max_length=20)
+    # HTML 富文本字段
+    message = HTMLField()
+    def __str__(self):
+        return self.title
+
+
 
 
