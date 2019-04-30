@@ -21,5 +21,5 @@ urlpatterns = [
 
     url(r'^mail/$',views.mail,name='mail'),
 
-    url(r'^active/(\d+)/$',views.active, name='active')
+    url(r'^active/(.*?)/$',views.active, name='active')
 ]

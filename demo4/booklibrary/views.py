@@ -6,8 +6,9 @@ from datetime import datetime,timedelta
 from django.core.mail import send_mail,send_mass_mail
 from django.conf import settings
 # Create your views here.
+import time
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer,BadSignature,SignatureExpired
 def index(request):
-
     messageinfos = MessageInfo.objects.all()
     return render(request,'booklibrary/index.html',{"messageinfos":messageinfos})
 
@@ -40,9 +41,14 @@ def readerregister(request):
             email = request.POST.get("email")
             StudentUser.objects.create_user(un, password=pwd, is_active = False)
             id = StudentUser.objects.get(username = un).id
+            # 序列化id
+            serutil = Serializer(settings.SECRET_KEY,300)
+            resultid = serutil.dumps({"userid":id}).decode("utf-8")
+
+
 
             # TODO 需要进行序列化加密
-            send_mail("点击激活账户", " <a href = 'http://127.0.0.1:8000/booklibrary/active/%s'> 点击我激活账户</a> "%(id,),settings.DEFAULT_FROM_EMAIL,[email])
+            send_mail("点击激活账户", " <a href = 'http://127.0.0.1:8000/booklibrary/active/%s'> 点击我激活账户</a> "%(resultid,),settings.DEFAULT_FROM_EMAIL,[email])
 
         except Exception as e:
             return render(request, 'booklibrary/reader_register.html', {"error":e})
@@ -179,16 +185,24 @@ def mail(request):
 
     return HttpResponse("发送成功")
 
-def active(request,id):
+def active(request,idstr):
     """
     用户激活用户 id为用户id
     :param request:
     :param id:
     :return:
     """
-    user = StudentUser.objects.get(pk = id)
-    user.is_active = True
-    user.save()
-    return redirect(reverse('booklibrary:readerlogin'))
+    deser = Serializer(settings.SECRET_KEY,300)
+    try:
+        obj = deser.loads(idstr)
+        user = StudentUser.objects.get(pk=obj["userid"])
+        user.is_active = True
+        user.save()
+        return redirect(reverse('booklibrary:readerlogin'))
+    except SignatureExpired as e:
+        return HttpResponse("连接失效")
+
+
+
 
 
