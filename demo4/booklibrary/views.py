@@ -202,6 +202,16 @@ def active(request,idstr):
     except SignatureExpired as e:
         return HttpResponse("连接失效")
 
+def ajax(request):
+    return render(request,'booklibrary/ajax.html')
+
+def ajaxajax(request):
+    if request.method == "GET":
+        return HttpResponse("GET请求成功")
+    elif request.method == "POST":
+        print("hello")
+        return HttpResponse("POST请求成功")
+
 
 
 

@@ -21,5 +21,9 @@ urlpatterns = [
 
     url(r'^mail/$',views.mail,name='mail'),
 
-    url(r'^active/(.*?)/$',views.active, name='active')
+    url(r'^active/(.*?)/$',views.active, name='active'),
+
+    url(r'^ajax/$', views.ajax, name='ajax'),
+
+    url(r'^ajaxajax/$', views.ajaxajax, name='ajaxajax'),
 ]
