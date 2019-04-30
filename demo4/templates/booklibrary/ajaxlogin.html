@@ -1,0 +1,48 @@
+{% extends 'booklibrary/base.html' %}
+{% block title %}登录{% endblock %}
+{% block linkcss %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script>
+        $(function(){
+            $("#username").blur(function(){
+                $.ajax({
+                    url:"/booklibrary/checkuser/",
+                    type:'post',
+                    data:{
+                    "csrfmiddlewaretoken":$("input[name=csrfmiddlewaretoken]").val(),
+                    "username":$("#username").val()
+                    },
+                    success:function(data){
+                        $("#usernameinfo").text(data);
+                    }
+                })
+            })
+
+
+            $("#verifycodeimg").click(function(){
+                this.src = '/booklibrary/verifycode/'+"?time="+new Date().getTime()
+            })
+        })
+
+    </script>
+
+{% endblock %}
+
+
+{% block body %}
+<h2>登录</h2>
+
+<form action="{% url 'booklibrary:ajaxlogin' %}" method="post">
+    {% csrf_token %}
+    用户名： <input type="text" name="username" id="username"> <span id="usernameinfo"></span>
+    <br>
+    密&nbsp;&nbsp;&nbsp;&nbsp;码： <input type="password" name="password">
+    <br>
+    <img id="verifycodeimg" src="{% url 'booklibrary:verifycode' %}" alt="验证码加载失败"> <input type="text" name="verifycode">
+
+    <br>
+    <input type="submit" value="登录">
+
+</form>
+
+{% endblock %}
