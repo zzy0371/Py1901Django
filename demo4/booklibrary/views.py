@@ -314,6 +314,8 @@ def verifycode(request):
     return HttpResponse(f.getvalue(), 'image/png')
 
 
+def echarts(request):
+    return render(request,'booklibrary/echarts.html')
 
 
 

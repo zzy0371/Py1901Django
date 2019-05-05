@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^checkuser/$',views.checkuser,name='checkuser'),
 
     url(r'^verifycode/$',views.verifycode,name='verifycode'),
+    url(r'^echarts/$',views.echarts,name='echarts'),
 
 ]
