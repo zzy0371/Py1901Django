@@ -49,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 启用自定义中间件
+    # 'demo4.simplemiddleware.SimpleMiddelWare',
 ]
 
 ROOT_URLCONF = 'demo4.urls'
