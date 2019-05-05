@@ -1,6 +1,8 @@
 {% extends 'booklibrary/base.html' %}
 {% block title %}
 {% load extend_fun %}
+{% load cache %}
+
 首页
 {% endblock %}
 
@@ -14,8 +16,9 @@
         <hr>
         <h5>热门图书</h5>
         <hr>
-        {% gethot_pics as hot_pics%}
 
+        {% cache 500 hot_pic %}
+        {% gethot_pics as hot_pics%}
           <!--轮播图-->
           <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
           <!-- Indicators -->
@@ -61,7 +64,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-
+        {% endcache %}
     </div>
     <hr>
     <div class="articles">

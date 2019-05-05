@@ -11,7 +11,23 @@ import io
 from PIL import Image,ImageDraw,ImageFont
 import time
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer,BadSignature,SignatureExpired
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
+# 缓存页面
+@cache_page(60*15)
 def index(request):
+
+    # 底层缓存API
+    reuslt = cache.get("code1")
+    print(reuslt)
+    reuslt = cache.set("code1","12345")
+    print(reuslt)
+    reuslt = cache.get("code1")
+    print(reuslt)
+
+
+
+
     messageinfos = MessageInfo.objects.all()
     return render(request,'booklibrary/index.html',{"messageinfos":messageinfos})
 
